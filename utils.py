@@ -219,4 +219,4 @@ def get_sudoku_grid(cells):
             cell["value"] == 0,
         ]
 
-    return grid, grid_meta
+    return grid

@@ -9,7 +9,7 @@ from main import sudoku_processing
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecretkey'
-app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 class UploadFileForm(FlaskForm):
     file = FileField(
@@ -29,8 +29,9 @@ def home():
             )
         file.save(filepath)
 
-        if sudoku_processing(filepath):
-            return "Processing the image"
+        result, grid = sudoku_processing(filepath)
+        if result:
+            return render_template('index.html', form=form, grid=grid)
         else:
             return "Cannot process the image"
 
